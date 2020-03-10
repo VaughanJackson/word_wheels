@@ -27,35 +27,6 @@ class _ExamplePageState extends State<ExamplePage> {
   Duration initialtimer = new Duration();
   int selectitem = 1;
 
-  Widget datetime() {
-    return CupertinoDatePicker(
-      initialDateTime: DateTime.now(),
-      onDateTimeChanged: (DateTime newdate) {
-        print(newdate);
-      },
-      use24hFormat: true,
-      maximumDate: new DateTime(2018, 12, 30),
-      minimumYear: 2010,
-      maximumYear: 2018,
-      minuteInterval: 1,
-      mode: CupertinoDatePickerMode.dateAndTime,
-    );
-  }
-
-  Widget time() {
-    return CupertinoTimerPicker(
-      mode: CupertinoTimerPickerMode.hms,
-      minuteInterval: 1,
-      secondInterval: 1,
-      initialTimerDuration: initialtimer,
-      onTimerDurationChanged: (Duration changedtimer) {
-        setState(() {
-          initialtimer = changedtimer;
-        });
-      },
-    );
-  }
-
   Widget customPicker() {
     return CupertinoPicker(
       magnification: 1.5,
@@ -97,39 +68,6 @@ class _ExamplePageState extends State<ExamplePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              MaterialButton(
-                child: Text(
-                  "Cupertino date Picker",
-                  style: TextStyle(color: Colors.white),
-                ),
-                color: Colors.redAccent,
-                onPressed: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext builder) {
-                        return Container(
-                            height:
-                            MediaQuery.of(context).copyWith().size.height /
-                                3,
-                            child: datetime());
-                      });
-                },
-              ),
-              MaterialButton(
-                child: Text("Cupertino"),
-                color: Colors.greenAccent,
-                onPressed: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext builder) {
-                        return Container(
-                            height:
-                            MediaQuery.of(context).copyWith().size.height /
-                                3,
-                            child: time());
-                      });
-                },
-              ),
               MaterialButton(
                 child: Text("CustomPicker"),
                 color: Colors.blueAccent,
