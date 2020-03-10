@@ -32,24 +32,30 @@ class _ExamplePageState extends State<ExamplePage> {
       magnification: 1.5,
       backgroundColor: Colors.black87,
       children: <Widget>[
-        Text(
-          "TextWidget",
-          style: TextStyle(
-              color: Colors.white, fontSize: 20),
+        MaterialButton(
+          child: Text(
+            "你",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
         ),
         MaterialButton(
           child: Text(
-            "Button Widget",
-            style: TextStyle(color: Colors.white),
+            "好",
+            style: TextStyle(color: Colors.white, fontSize: 20),
           ),
-          color: Colors.redAccent,
         ),
-        IconButton(
-          icon: Icon(Icons.home),
-          color: Colors.white,
-          iconSize: 40,
-          onPressed: () {},
-        )
+        MaterialButton(
+          child: Text(
+            "吗",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        ),
+        MaterialButton(
+          child: Text(
+            "？",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        ),
       ],
       itemExtent: 50, //height of each item
       looping: true,
