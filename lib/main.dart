@@ -90,7 +90,23 @@ class _ExamplePageState extends State<ExamplePage> {
                               ],
                             ),
                             body: Container(
-                              child: customPicker()
+                                child: Row(children: <Widget>[
+                                  Expanded(
+                                      child: customPicker()
+                                  ),
+                                  Expanded(
+                                      child: customPicker()
+                                  ),
+                                  Expanded(
+                                      child: customPicker()
+                                  ),
+                                  Expanded(
+                                      child: customPicker()
+                                  ),
+                                  Expanded(
+                                      child: customPicker()
+                                  ),
+                                ])
                             ));
                       });
                 },
