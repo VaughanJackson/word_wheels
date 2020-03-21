@@ -75,7 +75,7 @@ class _ExamplePageState extends State<ExamplePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               MaterialButton(
-                child: Text("CustomPicker"),
+                child: Text("开始！"),
                 color: Colors.blueAccent,
                 onPressed: () {
                   showModalBottomSheet(
@@ -84,13 +84,14 @@ class _ExamplePageState extends State<ExamplePage> {
                         return Scaffold(
                             appBar: AppBar(
                               title: Text(
-                                "CupertinoPicker",
-                                textAlign: TextAlign.justify,
+                                "水车",
+                                textAlign: TextAlign.right,
                               ),
-                              backgroundColor: Colors.teal,
+                              backgroundColor: Colors.amber,
                               actions: <Widget>[
                                 IconButton(
-                                  icon: Icon(Icons.send),
+                                  icon: Icon(Icons.replay),
+                                  tooltip: "再玩一次！",
                                   onPressed: () {},
                                 )
                               ],
