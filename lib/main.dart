@@ -23,8 +23,6 @@ class ExamplePage extends StatefulWidget {
 }
 
 class _ExamplePageState extends State<ExamplePage> {
-  DateTime _setDate = DateTime.now();
-  Duration initialtimer = new Duration();
   int selectitem = 1;
 
   Widget customPicker() {
