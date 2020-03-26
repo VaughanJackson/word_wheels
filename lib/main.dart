@@ -25,38 +25,44 @@ class ExamplePage extends StatefulWidget {
 class _ExamplePageState extends State<ExamplePage> {
   int selectitem = 1;
 
-  Widget customPicker() {
+  Widget wheel(final String key) {
     return CupertinoPicker(
+      key: Key(key),
       magnification: 1.5,
       backgroundColor: Colors.black87,
       children: <Widget>[
         MaterialButton(
+          key: Key(/*key + ".你"*/"wheel1.你"),
           child: Text(
             "你",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         ),
         MaterialButton(
+          key: Key(key + '.好'),
           child: Text(
             "好",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         ),
         MaterialButton(
+          key: Key(key + '.吗'),
           child: Text(
             "吗",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         ),
         MaterialButton(
+          key: Key('$key.?'),
           child: Text(
-            "？",
+            "?",
+            key: Key('$key.?.text'),
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         ),
       ],
       itemExtent: 50, //height of each item
-      looping: true,
+      looping: false,
       onSelectedItemChanged: (int index) {
         selectitem = index;
       },
@@ -73,6 +79,7 @@ class _ExamplePageState extends State<ExamplePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               MaterialButton(
+                key: Key("开始！"),
                 child: Text("开始！"),
                 color: Colors.blueAccent,
                 onPressed: () {
@@ -95,22 +102,23 @@ class _ExamplePageState extends State<ExamplePage> {
                               ],
                             ),
                             body: Container(
+                              key: Key('wheels'),
                                 child: Row(children: <Widget>[
                                   Expanded(
-                                      child: customPicker()
+                                      child: wheel("wheel1")
                                   ),
-                                  Expanded(
-                                      child: customPicker()
-                                  ),
-                                  Expanded(
-                                      child: customPicker()
-                                  ),
-                                  Expanded(
-                                      child: customPicker()
-                                  ),
-                                  Expanded(
-                                      child: customPicker()
-                                  ),
+//                                  Expanded(
+//                                      child: wheel('wheel2')
+//                                  ),
+//                                  Expanded(
+//                                      child: wheel('wheel3')
+//                                  ),
+//                                  Expanded(
+//                                      child: wheel('wheel4')
+//                                  ),
+//                                  Expanded(
+//                                      child: wheel('wheel5')
+//                                  ),
                                 ])
                             ));
                       });
