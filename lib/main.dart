@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:word_wheels/wheel.dart';
 
 void main() {
-  runApp(CupertinoExample());
+  runApp(WordWheels());
 }
 
-class CupertinoExample extends StatefulWidget {
+class WordWheels extends StatefulWidget {
   @override
-  _CupertinoExampleState createState() => _CupertinoExampleState();
+  _WordWheelsState createState() => _WordWheelsState();
 }
 
-class _CupertinoExampleState extends State<CupertinoExample> {
+class _WordWheelsState extends State<WordWheels> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(home: ExamplePage());
