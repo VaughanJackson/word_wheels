@@ -25,31 +25,6 @@ class ExamplePage extends StatefulWidget {
 class _ExamplePageState extends State<ExamplePage> {
   int selectitem = 1;
 
-  Widget wheel(final String key, final String characters) {
-    final List<Widget> buttons = [];
-    characters.runes.forEach((int rune) {
-      var character = new String.fromCharCode(rune);
-      buttons.add(MaterialButton(
-        key: Key('$key.$character'),
-        child: Text(
-          character,
-          style: TextStyle(color: Colors.white, fontSize: 20),
-        ),
-      ));
-    });
-    return CupertinoPicker(
-      key: Key(key),
-      magnification: 1.5,
-      backgroundColor: Colors.black87,
-      children: buttons,
-      itemExtent: 50, //height of each item
-      looping: false,
-      onSelectedItemChanged: (int index) {
-        selectitem = index;
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +61,7 @@ class _ExamplePageState extends State<ExamplePage> {
                               key: Key('wheels'),
                                 child: Row(children: <Widget>[
                                   Expanded(
-                                      child: wheel("wheel1", '你的中文在这里')
+                                      child: Wheel("wheel1", '你的中文在这里')
                                   ),
 //                                  Expanded(
 //                                      child: wheel('wheel2')
@@ -109,6 +84,40 @@ class _ExamplePageState extends State<ExamplePage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class Wheel extends StatelessWidget {
+  final String wheelKey;
+  final String characters;
+  int selectedItem = 1;
+
+  Wheel(this.wheelKey, this.characters);
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Widget> buttons = [];
+    characters.runes.forEach((int rune) {
+      var character = new String.fromCharCode(rune);
+      buttons.add(MaterialButton(
+        key: Key('$wheelKey.$character'),
+        child: Text(
+          character,
+          style: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+      ));
+    });
+    return CupertinoPicker(
+      key: Key(wheelKey),
+      magnification: 1.5,
+      backgroundColor: Colors.black87,
+      children: buttons,
+      itemExtent: 50, //height of each item
+      looping: false,
+      onSelectedItemChanged: (int index) {
+        selectedItem = index;
+      },
     );
   }
 }
