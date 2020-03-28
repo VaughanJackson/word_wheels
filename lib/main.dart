@@ -23,7 +23,6 @@ class ExamplePage extends StatefulWidget {
 }
 
 class _ExamplePageState extends State<ExamplePage> {
-  int selectitem = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -88,20 +87,27 @@ class _ExamplePageState extends State<ExamplePage> {
   }
 }
 
-class Wheel extends StatelessWidget {
+class Wheel extends StatefulWidget {
   final String wheelKey;
   final String characters;
-  int selectedItem = 1;
 
   Wheel(this.wheelKey, this.characters);
 
   @override
+  State<StatefulWidget> createState() => _WheelState();
+
+}
+
+class _WheelState extends State<Wheel> {
+  int selectedItem = 1;
+
+  @override
   Widget build(BuildContext context) {
     final List<Widget> buttons = [];
-    characters.runes.forEach((int rune) {
+    widget.characters.runes.forEach((int rune) {
       var character = new String.fromCharCode(rune);
       buttons.add(MaterialButton(
-        key: Key('$wheelKey.$character'),
+        key: Key('$widget.wheelKey.$character'),
         child: Text(
           character,
           style: TextStyle(color: Colors.white, fontSize: 20),
@@ -109,7 +115,7 @@ class Wheel extends StatelessWidget {
       ));
     });
     return CupertinoPicker(
-      key: Key(wheelKey),
+      key: Key(widget.wheelKey),
       magnification: 1.5,
       backgroundColor: Colors.black87,
       children: buttons,
