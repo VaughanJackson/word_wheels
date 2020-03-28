@@ -5,7 +5,7 @@ class Wheel extends StatefulWidget {
   final String wheelKey;
   final String characters;
 
-  Wheel(this.wheelKey, this.characters);
+  const Wheel(this.wheelKey, this.characters);
 
   @override
   State<StatefulWidget> createState() => _WheelState();
