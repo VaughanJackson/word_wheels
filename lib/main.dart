@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:word_wheels/wheel.dart';
+import 'wheels.dart';
 
 void main() {
   runApp(WordWheels());
@@ -58,23 +58,7 @@ class _ExamplePageState extends State<ExamplePage> {
                             ),
                             body: Container(
                               key: Key('wheels'),
-                                child: Row(children: <Widget>[
-                                  Expanded(
-                                      child: Wheel("wheel1", '你的中文在这里')
-                                  ),
-//                                  Expanded(
-//                                      child: wheel('wheel2')
-//                                  ),
-//                                  Expanded(
-//                                      child: wheel('wheel3')
-//                                  ),
-//                                  Expanded(
-//                                      child: wheel('wheel4')
-//                                  ),
-//                                  Expanded(
-//                                      child: wheel('wheel5')
-//                                  ),
-                                ])
+                                child: Wheels(['你的中文在这里'])
                             ));
                       });
                 },
@@ -86,4 +70,3 @@ class _ExamplePageState extends State<ExamplePage> {
     );
   }
 }
-
