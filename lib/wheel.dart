@@ -24,6 +24,7 @@ class _WheelState extends State<Wheel> {
         key: Key('${widget.wheelKey}.$character'),
         child: Text(
           character,
+          key: Key('${widget.wheelKey}.$character.text'),
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
       ));
