@@ -25,42 +25,23 @@ class ExamplePage extends StatefulWidget {
 class _ExamplePageState extends State<ExamplePage> {
   int selectitem = 1;
 
-  Widget wheel(final String key) {
+  Widget wheel(final String key, final String characters) {
+    final List<Widget> buttons = [];
+    characters.runes.forEach((int rune) {
+      var character = new String.fromCharCode(rune);
+      buttons.add(MaterialButton(
+        key: Key('$key.$character'),
+        child: Text(
+          character,
+          style: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+      ));
+    });
     return CupertinoPicker(
       key: Key(key),
       magnification: 1.5,
       backgroundColor: Colors.black87,
-      children: <Widget>[
-        MaterialButton(
-          key: Key(/*key + ".你"*/"wheel1.你"),
-          child: Text(
-            "你",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-        ),
-        MaterialButton(
-          key: Key(key + '.好'),
-          child: Text(
-            "好",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-        ),
-        MaterialButton(
-          key: Key(key + '.吗'),
-          child: Text(
-            "吗",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-        ),
-        MaterialButton(
-          key: Key('$key.?'),
-          child: Text(
-            "?",
-            key: Key('$key.?.text'),
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-        ),
-      ],
+      children: buttons,
       itemExtent: 50, //height of each item
       looping: false,
       onSelectedItemChanged: (int index) {
@@ -105,7 +86,7 @@ class _ExamplePageState extends State<ExamplePage> {
                               key: Key('wheels'),
                                 child: Row(children: <Widget>[
                                   Expanded(
-                                      child: wheel("wheel1")
+                                      child: wheel("wheel1", '你的中文在这里')
                                   ),
 //                                  Expanded(
 //                                      child: wheel('wheel2')
