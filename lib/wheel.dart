@@ -21,7 +21,7 @@ class _WheelState extends State<Wheel> {
     widget.characters.runes.forEach((int rune) {
       var character = new String.fromCharCode(rune);
       buttons.add(MaterialButton(
-        key: Key('$widget.wheelKey.$character'),
+        key: Key('${widget.wheelKey}.$character'),
         child: Text(
           character,
           style: TextStyle(color: Colors.white, fontSize: 20),
