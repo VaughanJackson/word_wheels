@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:word_wheels/wheel.dart';
 
 class Wheels extends StatelessWidget {
@@ -17,9 +18,11 @@ class Wheels extends StatelessWidget {
       ));
       no++;
     });
-    return Container(
+    return Directionality(
+        textDirection: TextDirection.ltr,
+        child: Container(
         key: Key('wheels'),
         child: Row(children: wheels)
-    );
+    ));
   }
 }

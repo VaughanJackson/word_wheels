@@ -29,7 +29,9 @@ class _WheelState extends State<Wheel> {
         ),
       ));
     });
-    return CupertinoPicker(
+    return Directionality(
+        textDirection: TextDirection.ltr,
+        child: CupertinoPicker(
       key: Key(widget.wheelKey),
       magnification: 1.5,
       backgroundColor: Colors.black87,
@@ -39,6 +41,6 @@ class _WheelState extends State<Wheel> {
       onSelectedItemChanged: (int index) {
         selectedItem = index;
       },
-    );
+    ));
   }
 }
