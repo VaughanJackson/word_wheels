@@ -14,7 +14,8 @@ class Wheels extends StatelessWidget {
     int no = 1;
     characters.forEach((chars) {
       wheels.add(Expanded(
-          child: Wheel('wheel$no', chars)
+        // TODO Make callback do something useful
+          child: Wheel('wheel$no', chars, (character) { print('>>>' + character); })
       ));
       no++;
     });
