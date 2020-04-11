@@ -1,15 +1,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tuple/tuple.dart';
 import 'package:word_wheels/wheel.dart';
 
 // Tests the Wheel widget.
 void main() {
 
-  String selectedCharacter = '';
+  const int tokenWheelIndex = 5;
+  const a = const Tuple2(tokenWheelIndex, 'a');
+  const b = const Tuple2(tokenWheelIndex, 'b');
+  const c = const Tuple2(tokenWheelIndex, 'c');
 
-  final FixedExtentScrollController controller =
-  FixedExtentScrollController();
+  Tuple2<int, String> selection;
+  final testController = FixedExtentScrollController();
 
   testWidgets('Wheel widget displays characters and reports their selection',
               (WidgetTester tester) async {
@@ -17,11 +21,12 @@ void main() {
     // Build our widget and trigger a frame.
     await tester.pumpWidget(
         Wheel.withTestController(
+            5,
             'testKey',
             'abc',
-            (character) { selectedCharacter = character;
-                          print('selected character = ' + selectedCharacter ); },
-            controller));
+            (character) { selection = character;
+                          print('selection = ' + selection.toString() ); },
+            testController));
 
     // Verify characters are displayed on the wheel
     expect(find.text('a'), findsOneWidget);
@@ -31,18 +36,18 @@ void main() {
 
     // Verify characters presented in the expected order and that their selection
     // is reported correctly.
-    controller.jumpToItem(1);
-    expect(selectedCharacter, 'b');
+    testController.jumpToItem(1);
+    expect(selection, b);
 
     // TODO Why does this not work if it is the first item jumped to?
-    controller.jumpToItem(0);
-    expect(selectedCharacter, 'a');
+    testController.jumpToItem(0);
+    expect(selection, a);
 
-    controller.jumpToItem(2);
-    expect(selectedCharacter, 'c');
+    testController.jumpToItem(2);
+    expect(selection, c);
 
-    controller.jumpToItem(0);
-    expect(selectedCharacter, 'a');
+    testController.jumpToItem(0);
+    expect(selection, a);
 
   });
 }

@@ -11,13 +11,17 @@ class Wheels extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final List<Widget> wheels = [];
-    int no = 1;
+    int index = 0;
     characters.forEach((chars) {
       wheels.add(Expanded(
         // TODO Make callback do something useful
-          child: Wheel('wheel$no', chars, (character) { print('>>>' + character); })
+          child: Wheel(
+              index,
+              'wheel$index',
+              chars,
+              (character) { print('>>>' + character.toString()); })
       ));
-      no++;
+      index++;
     });
     return Directionality(
         textDirection: TextDirection.ltr,
