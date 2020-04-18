@@ -2,7 +2,6 @@ import 'package:test/test.dart';
 import 'package:tuple/tuple.dart';
 import 'package:word_wheels/phrase_builder.dart';
 
-
 // Unit tests the PhraseBuilder class.
 void main() {
 
@@ -10,7 +9,6 @@ void main() {
     // TODO Use DI?
     final PhraseBuilder builder = PhraseBuilder();
 
-    print(Tuple2<int, String>(0, '汉'));
     builder.addCharacterSelection(Tuple2<int, String>(5, '试'));
     builder.addCharacterSelection(Tuple2<int, String>(0, '汉'));
     builder.addCharacterSelection(Tuple2<int, String>(1, '语'));
@@ -26,7 +24,6 @@ void main() {
     // TODO Use DI?
     final PhraseBuilder builder = PhraseBuilder();
 
-    print(Tuple2<int, String>(0, '汉'));
     builder.addCharacterSelection(Tuple2<int, String>(5, '试'));
     builder.addCharacterSelection(Tuple2<int, String>(0, '汉'));
     builder.addCharacterSelection(Tuple2<int, String>(1, '语'));
@@ -36,6 +33,19 @@ void main() {
     builder.addCharacterSelection(Tuple2<int, String>(3, '平'));
 
     expect(builder.buildPhrase(), '汉语水平考试');
+
+  });
+
+  test('Latest character for a selection (ie wheel)  is that seen in phrase',
+          () {
+    // TODO Use DI?
+    final PhraseBuilder builder = PhraseBuilder();
+
+    builder.addCharacterSelection(Tuple2<int, String>(5, '试'));
+    expect(builder.buildPhrase(), '试');
+    builder.addCharacterSelection(Tuple2<int, String>(5, '汉'));
+    builder.addCharacterSelection(Tuple2<int, String>(5, '语'));
+    expect(builder.buildPhrase(), '语');
 
   });
 

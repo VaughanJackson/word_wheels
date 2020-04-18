@@ -5,10 +5,13 @@ class PhraseBuilder {
 
   final Map<int, String> _selections = Map();
 
-  // A character has been selected on a wheel
+  // A character has been selected on a wheel, capture it for later rendering
+  // in phrase.
   void addCharacterSelection(final Tuple2<int, String> characterSelection) {
-    print('PhraseBuilder: Adding: [' + characterSelection.item1.toString() + '] = ' + characterSelection.item2 );
-    _selections.putIfAbsent(characterSelection.item1, () => characterSelection.item2);
+    print('PhraseBuilder: Adding: [' + characterSelection.item1.toString() +
+        '] = ' + characterSelection.item2 );
+    _selections[characterSelection.item1] = characterSelection.item2;
+    print('PhraseBuilder: _selections = ' + _selections.toString());
   }
 
   // Builds a phrase from the character selections it has been provided with.

@@ -38,7 +38,7 @@ class Wheels extends StatelessWidget {
 //                final String phrase = phraseBuilder.buildPhrase();
 //                print('Wheels: phrase = ' + phrase);
 //                _onCharacterSelected(phrase);
-                print('xxxx => ' + phraseBuilder.buildPhrase());
+                print('Wheels: Accumulated phrase = ' + phraseBuilder.buildPhrase());
               })
       ));
       index++;
