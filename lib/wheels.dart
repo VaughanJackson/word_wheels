@@ -19,10 +19,6 @@ class Wheels extends StatelessWidget {
 
     // TODO use some form of dependency injection?
     final PhraseBuilder phraseBuilder = PhraseBuilder();
-//    final phraseBuilder = DelayedPhraseBuilder((phrase){
-//      print('Wheels: phrase = ' + phrase);
-//      _onCharacterSelected(phrase);
-//    });
 
     final List<Widget> wheels = [];
     int index = 0;
@@ -35,9 +31,6 @@ class Wheels extends StatelessWidget {
               (selection) {
                 print('Wheels: @selection = ' + selection.toString());
                 phraseBuilder.addCharacterSelection(selection);
-//                final String phrase = phraseBuilder.buildPhrase();
-//                print('Wheels: phrase = ' + phrase);
-//                _onCharacterSelected(phrase);
                 print('Wheels: Accumulated phrase = ' + phraseBuilder.buildPhrase());
               })
       ));

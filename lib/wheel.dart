@@ -87,8 +87,6 @@ class _WheelState extends State<Wheel> {
         print('_WheelState.onSelectedItemChanged(' + index.toString() +
             '): wheel ' + widget._wheelIndex.toString() + ' = ' +
             selectedCharacter);
-//        final selection = Tuple2<int, String>(widget._wheelIndex, selectedCharacter);
-//        widget._onCharacterSelected(selection);
         _governor.onCharacterSelected(selectedCharacter);
       },
     ));
