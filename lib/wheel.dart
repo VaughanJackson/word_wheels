@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:tuple/tuple.dart';
 
+import 'governor.dart';
+
 class Wheel extends StatefulWidget {
   int _wheelIndex;
   String _wheelKey;
@@ -40,6 +42,19 @@ class Wheel extends StatefulWidget {
 }
 
 class _WheelState extends State<Wheel> {
+  Governor _governor;
+
+  @override
+  void initState() {
+    _governor = new Governor(_onCharacterSelected);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _governor.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +84,19 @@ class _WheelState extends State<Wheel> {
       looping: false,
       onSelectedItemChanged: (int index) {
         final String selectedCharacter = widget._characters[index];
-        print(widget._wheelIndex.toString() + ' = ' + selectedCharacter);
-        final selection = Tuple2<int, String>(widget._wheelIndex, selectedCharacter);
-        widget._onCharacterSelected(selection);
+        print('_WheelState.onSelectedItemChanged(' + index.toString() +
+            '): wheel ' + widget._wheelIndex.toString() + ' = ' +
+            selectedCharacter);
+//        final selection = Tuple2<int, String>(widget._wheelIndex, selectedCharacter);
+//        widget._onCharacterSelected(selection);
+        _governor.onCharacterSelected(selectedCharacter);
       },
     ));
+  }
+
+  void _onCharacterSelected(final String character) {
+    print('_WheelState._onCharacterSelected(' + character + ')');
+    final selection = Tuple2<int, String>(widget._wheelIndex, character);
+    widget._onCharacterSelected(selection);
   }
 }

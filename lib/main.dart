@@ -58,12 +58,14 @@ class _ExamplePageState extends State<ExamplePage> {
                             ),
                             body: Container(
                               key: Key('wheels'),
-                                child: Wheels([
-                                  '你的中文在这里',
-                                  '我的中文在这里',
-                                  '她的中文在这里'
-                                ])
-
+                                child: Wheels(
+                                  [
+                                    '你的中文在这里',
+                                    '我的中文在这里',
+                                    '她的中文在这里'
+                                  ],
+                                  (selection) => print('_ExamplePageState selection = ' + selection)
+                                )
                             ));
                       });
                 },

@@ -11,7 +11,7 @@ void main() {
           '你的中文在这里',
           '我的中文在这里',
           '她的中文在这里'
-        ])
+        ], (_) => {})
     );
 
     // TODO Assert more than widget can be rendered without blowing up!
