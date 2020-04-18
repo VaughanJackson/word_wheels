@@ -8,16 +8,15 @@ class PhraseBuilder {
   // A character has been selected on a wheel
   void addCharacterSelection(final Tuple2<int, String> characterSelection) {
     print('PhraseBuilder: Adding: [' + characterSelection.item1.toString() + '] = ' + characterSelection.item2 );
-
     _selections.putIfAbsent(characterSelection.item1, () => characterSelection.item2);
   }
 
   // Builds a phrase from the character selections it has been provided with.
   String buildPhrase() {
-
+    final disposableSelections = new Map<int, String>.from(_selections);
     final List<int> keys = _selections.keys.toList();
     keys.sort();
-    final String phrase = keys.map((key) => _selections.remove(key)).reduce((phrase, character) {
+    final String phrase = keys.map((key) => disposableSelections.remove(key)).reduce((phrase, character) {
       print('PhraseBuilder: phrase = ' + phrase + ', character = ' + character);
       phrase += character;
       return phrase; } );

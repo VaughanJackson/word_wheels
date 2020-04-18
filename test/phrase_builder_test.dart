@@ -22,4 +22,21 @@ void main() {
     
   });
 
+  test('Building a phrase multiple times does not reset phrase', () {
+    // TODO Use DI?
+    final PhraseBuilder builder = PhraseBuilder();
+
+    print(Tuple2<int, String>(0, '汉'));
+    builder.addCharacterSelection(Tuple2<int, String>(5, '试'));
+    builder.addCharacterSelection(Tuple2<int, String>(0, '汉'));
+    builder.addCharacterSelection(Tuple2<int, String>(1, '语'));
+    expect(builder.buildPhrase(), '汉语试');
+    builder.addCharacterSelection(Tuple2<int, String>(4, '考'));
+    builder.addCharacterSelection(Tuple2<int, String>(2, '水'));
+    builder.addCharacterSelection(Tuple2<int, String>(3, '平'));
+
+    expect(builder.buildPhrase(), '汉语水平考试');
+
+  });
+
 }
