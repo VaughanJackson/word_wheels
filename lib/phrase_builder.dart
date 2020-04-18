@@ -13,10 +13,11 @@ class PhraseBuilder {
 
   // Builds a phrase from the character selections it has been provided with.
   String buildPhrase() {
-    final disposableSelections = new Map<int, String>.from(_selections);
+    final disposableSelectionsSnapshot = new Map<int, String>.from(_selections);
     final List<int> keys = _selections.keys.toList();
     keys.sort();
-    final String phrase = keys.map((key) => disposableSelections.remove(key)).reduce((phrase, character) {
+    final String phrase = keys.map((key) =>
+        disposableSelectionsSnapshot.remove(key)).reduce((phrase, character) {
       print('PhraseBuilder: phrase = ' + phrase + ', character = ' + character);
       phrase += character;
       return phrase; } );
