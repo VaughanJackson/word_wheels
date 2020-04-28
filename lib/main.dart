@@ -24,6 +24,15 @@ class ExamplePage extends StatefulWidget {
 
 class _ExamplePageState extends State<ExamplePage> {
 
+  String _phrase = '';
+
+  void _handleSelection(selection) {
+    setState(() {
+      _phrase = selection;
+      print('_phrase = ' + _phrase);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,20 +42,19 @@ class _ExamplePageState extends State<ExamplePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              AppBar(title: Text('句词：$_phrase', textAlign: TextAlign.start)),
+              Spacer(),
               MaterialButton(
                 key: Key("开始！"),
                 child: Text("开始！"),
                 color: Colors.blueAccent,
                 onPressed: () {
+                  _handleSelection(''); // reset
                   showModalBottomSheet(
                       context: context,
                       builder: (BuildContext builder) {
                         return Scaffold(
                             appBar: AppBar(
-                              title: Text(
-                                "水车",
-                                textAlign: TextAlign.right,
-                              ),
                               backgroundColor: Colors.amber,
                               actions: <Widget>[
                                 IconButton(
@@ -58,18 +66,30 @@ class _ExamplePageState extends State<ExamplePage> {
                             ),
                             body: Container(
                               key: Key('wheels'),
-                                child: Wheels(
-                                  [
-                                    '你的中文在这里',
-                                    '我的中文在这里',
-                                    '她的中文在这里'
-                                  ],
-                                  (selection) => print('_ExamplePageState selection = ' + selection)
+                                child: Center(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Wheels(
+                                              [
+                                                '你的中文在这里',
+                                                '我的中文在这里',
+                                                '她的中文在这里'
+                                              ],
+                                              (selection) {
+                                                print('_ExamplePageState selection = ' + selection);
+                                                _handleSelection(selection);
+                                              }
+                                            ),
+                                      ),
+                                    ],
+                                  ),
                                 )
                             ));
                       });
                 },
-              )
+              ),
+              Spacer()
             ],
           ),
         ),

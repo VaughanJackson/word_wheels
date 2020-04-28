@@ -8,7 +8,6 @@ class Wheels extends StatelessWidget {
   // TODO At some point an evaluation of this will be displayed by some widget.
   final Map<int, String> selections = Map();
 
-  // TODO Use or lose this!
   // Callback for when a character is selected.
   final ValueSetter<String> _onCharacterSelected;
 
@@ -32,6 +31,7 @@ class Wheels extends StatelessWidget {
                 print('Wheels: @selection = ' + selection.toString());
                 phraseBuilder.addCharacterSelection(selection);
                 print('Wheels: Accumulated phrase = ' + phraseBuilder.buildPhrase());
+                this._onCharacterSelected(phraseBuilder.buildPhrase());
               })
       ));
       index++;
