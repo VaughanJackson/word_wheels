@@ -1,5 +1,6 @@
 import 'package:test/test.dart';
 import 'package:word_wheels/governor.dart';
+import 'test_module_container.dart';
 
 // Unit tests the Governor class.
 void main() {
@@ -17,10 +18,10 @@ void main() {
   // future?
   test('Reports the only character selected', () async {
     // TODO Use DI?
-    final Governor governor = Governor((character) {
+    final Governor governor = injector.get<Governor>(additionalParameters: { "_onCharacterSelected" : (character) {
       print('checking character is 汉');
       expect(character, '汉');
-    });
+    }});
 
     governor.onCharacterSelected('汉');
     await Future.delayed(delay, (){});
@@ -29,11 +30,10 @@ void main() {
 
   test('Reports the last character selected in a quick fire sequence',
           () async {
-    // TODO Use DI?
-    final Governor governor = Governor((character) {
+    final Governor governor = injector.get<Governor>(additionalParameters: { "_onCharacterSelected" : (character) {
       print('checking character is 试');
       expect(character, '试');
-    });
+    }});
 
     governor.onCharacterSelected('汉');
     governor.onCharacterSelected('语');
@@ -50,13 +50,12 @@ void main() {
 
     final List<String> expectedCharacters = ['汉', '水', '考'];
 
-    // TODO Use DI?
-    final Governor governor = Governor((character) {
+    final Governor governor = injector.get<Governor>(additionalParameters: { "_onCharacterSelected" : (character) {
       print('checking character ' + character + ' is in ' +
           expectedCharacters.toString());
       expect(expectedCharacters.contains(character), true);
       expectedCharacters.remove(character);
-    });
+    }});
 
     governor.onCharacterSelected('汉');
     await Future.delayed(delay, (){});
@@ -77,13 +76,12 @@ void main() {
 
     final List<String> expectedCharacters = ['汉'];
 
-    // TODO Use DI?
-    final Governor governor = Governor((character) {
+    final Governor governor = injector.get<Governor>(additionalParameters: { "_onCharacterSelected" : (character) {
       print('checking character ' + character + ' is in ' +
           expectedCharacters.toString());
       expect(expectedCharacters.contains(character), true);
       expectedCharacters.remove(character);
-    });
+    }});
 
     governor.onCharacterSelected('汉');
     await Future.delayed(delay, (){});

@@ -1,17 +1,14 @@
 import 'package:test/test.dart';
 import 'package:tuple/tuple.dart';
 import 'package:word_wheels/phrase_builder.dart';
-import 'package:flutter_simple_dependency_injection/injector.dart';
+import 'test_module_container.dart';
 
 // Unit tests the PhraseBuilder class.
 void main() {
 
-  final Injector _injector = Injector.getInjector();
-  _injector.map<PhraseBuilder>((injector) => PhraseBuilder());
-
   test('Builds a phrase with characters ordered according to the wheel numbers, not order of addition', () {
 
-    final PhraseBuilder builder = _injector.get<PhraseBuilder>();
+    final PhraseBuilder builder = injector.get<PhraseBuilder>();
 
     builder.addCharacterSelection(Tuple2<int, String>(5, '试'));
     builder.addCharacterSelection(Tuple2<int, String>(0, '汉'));
@@ -26,7 +23,7 @@ void main() {
 
   test('Building a phrase multiple times does not reset phrase', () {
 
-    final PhraseBuilder builder = _injector.get<PhraseBuilder>();
+    final PhraseBuilder builder = injector.get<PhraseBuilder>();
 
     builder.addCharacterSelection(Tuple2<int, String>(5, '试'));
     builder.addCharacterSelection(Tuple2<int, String>(0, '汉'));
@@ -42,7 +39,7 @@ void main() {
 
   test('Latest character for a selection (ie wheel)  is that seen in phrase', () {
 
-    final PhraseBuilder builder = _injector.get<PhraseBuilder>();
+    final PhraseBuilder builder = injector.get<PhraseBuilder>();
 
     builder.addCharacterSelection(Tuple2<int, String>(5, '试'));
     expect(builder.buildPhrase(), '试');
