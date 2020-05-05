@@ -17,7 +17,6 @@ void main() {
   // inappropriate given that the code called does not currently return
   // future?
   test('Reports the only character selected', () async {
-    // TODO Use DI?
     final Governor governor = injector.get<Governor>(additionalParameters: { "_onCharacterSelected" : (character) {
       print('checking character is 汉');
       expect(character, '汉');
