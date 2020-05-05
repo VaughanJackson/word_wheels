@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:word_wheels/phrase_builder.dart';
 import 'package:word_wheels/wheel.dart';
+import 'module_container.dart';
 
 class Wheels extends StatelessWidget {
   final List<String> characters;
@@ -16,8 +17,7 @@ class Wheels extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // TODO use some form of dependency injection?
-    final PhraseBuilder phraseBuilder = PhraseBuilder();
+    final PhraseBuilder phraseBuilder = injector.get<PhraseBuilder>();
 
     final List<Widget> wheels = [];
     int index = 0;

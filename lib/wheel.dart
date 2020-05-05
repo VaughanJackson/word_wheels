@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:tuple/tuple.dart';
 
 import 'governor.dart';
+import 'module_container.dart';
 
 class Wheel extends StatefulWidget {
   int _wheelIndex;
@@ -46,7 +47,8 @@ class _WheelState extends State<Wheel> {
 
   @override
   void initState() {
-    _governor = new Governor(_onCharacterSelected);
+    _governor = injector.get<Governor>(
+        additionalParameters: { "_onCharacterSelected" : _onCharacterSelected});
     super.initState();
   }
 
