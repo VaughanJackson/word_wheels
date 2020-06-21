@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:word_wheels/character_feeder.dart';
 import 'wheels.dart';
 import 'package:word_wheels/backend/services/vocabulary_service.dart';
 
@@ -37,8 +38,16 @@ class _ExamplePageState extends State<ExamplePage> {
   @override
   Widget build(BuildContext context) {
 
-    // TODO Do this properly
-    getVocabulary().then((vocab) => print(vocab));
+    // TODO Do this properly - not here, but once on app start up...or when user
+    // asks
+    // TODO DI?
+    final CharacterFeeder feeder = new CharacterFeeder();
+    List<String> buckets;
+    getVocabulary().then((vocabulary) =>
+    { print('1> ' + vocabulary),
+      buckets = feeder.provideCharacters(3, 7, vocabulary),
+      print('2> ' + buckets.toString())
+    });
 
     return Scaffold(
       body: Container(
@@ -76,11 +85,7 @@ class _ExamplePageState extends State<ExamplePage> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Wheels(
-                                              [
-                                                '你的中文在这里',
-                                                '我的中文在这里',
-                                                '她的中文在这里'
-                                              ],
+                                              buckets,
                                               (selection) {
                                                 print('_ExamplePageState selection = ' + selection);
                                                 _handleSelection(selection);

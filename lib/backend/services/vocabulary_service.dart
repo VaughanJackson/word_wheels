@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:word_wheels/backend/services/characters.dart';
 
 // TODO Make this configurable
-final String url = 'http://localhost:8080/characters?page=0&size=3&sort=frequencyRank';
+final String url = 'http://localhost:8080/characters?page=0&size=100&sort=frequencyRank';
 
 Future<String> getVocabulary() async {
   final response = await http.get(url);
