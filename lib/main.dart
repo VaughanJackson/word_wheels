@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'wheels.dart';
+import 'package:word_wheels/backend/services/vocabulary_service.dart';
 
 void main() {
   runApp(WordWheels());
@@ -35,6 +36,10 @@ class _ExamplePageState extends State<ExamplePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    // TODO Do this properly
+    getVocabulary().then((vocab) => print(vocab));
+
     return Scaffold(
       body: Container(
         color: Colors.blueGrey,
