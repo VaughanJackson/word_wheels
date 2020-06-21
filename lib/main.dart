@@ -27,6 +27,7 @@ class ExamplePage extends StatefulWidget {
 class _ExamplePageState extends State<ExamplePage> {
 
   String _phrase = '';
+  List<String> _buckets;
 
   void _handleSelection(selection) {
     setState(() {
@@ -35,20 +36,25 @@ class _ExamplePageState extends State<ExamplePage> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-
-    // TODO Do this properly - not here, but once on app start up...or when user
-    // asks
+  void _getVocabulary() async {
     // TODO DI?
     final CharacterFeeder feeder = new CharacterFeeder();
-    List<String> buckets;
     getVocabulary().then((vocabulary) =>
     { print('1> ' + vocabulary),
-      buckets = feeder.provideCharacters(3, 7, vocabulary),
-      print('2> ' + buckets.toString())
+      _buckets = feeder.provideCharacters(3, 7, vocabulary),
+      print('2> ' + _buckets.toString())
     });
+  }
 
+  @override
+  void initState() {
+    print('initState()');
+    super.initState();
+    _getVocabulary();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         color: Colors.blueGrey,
@@ -85,7 +91,7 @@ class _ExamplePageState extends State<ExamplePage> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Wheels(
-                                              buckets,
+                                              _buckets,
                                               (selection) {
                                                 print('_ExamplePageState selection = ' + selection);
                                                 _handleSelection(selection);
