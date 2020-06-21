@@ -1,15 +1,14 @@
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:word_wheels/backend/services/characters.dart';
-import 'dart:convert';
 
 // TODO Make this configurable
 final String url = 'http://localhost:8080/characters?page=0&size=3&sort=frequencyRank';
 
 Future<String> getVocabulary() async {
   final response = await http.get(url);
-  print(response.body);
-  final jsonData = json.decode(response.body);
-  final Embedded embedded = Embedded.fromJson(jsonData);
-  return embedded.characters.map((element) => element.character).reduce((a, b) => (a + b));
+  // TODO What we get here is not really a character but a page of characters.
+  // Can we align the abstractions with what we think we're actually doing at some point?
+  final Character character = characterFromJson(response.body);
+  return character.embedded.characters.map((element) => element.character).reduce((a, b) => (a + b));
 }
