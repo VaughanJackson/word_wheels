@@ -27,6 +27,9 @@ class ExamplePage extends StatefulWidget {
 class _ExamplePageState extends State<ExamplePage> {
 
   String _phrase = '';
+  // cached result from REST call
+  String _vocabulary;
+  // re-jigged from _vocabulary each time user starts new 'game'
   List<String> _buckets;
 
   void _handleSelection(selection) {
@@ -36,13 +39,10 @@ class _ExamplePageState extends State<ExamplePage> {
     });
   }
 
-  void _getVocabulary() async {
-    // TODO DI?
-    final CharacterFeeder feeder = new CharacterFeeder();
+  void _getVocabulary() {
     getVocabulary().then((vocabulary) =>
     { print('1> ' + vocabulary),
-      _buckets = feeder.provideCharacters(3, 7, vocabulary),
-      print('2> ' + _buckets.toString())
+      _vocabulary = vocabulary
     });
   }
 
@@ -69,6 +69,10 @@ class _ExamplePageState extends State<ExamplePage> {
                 child: Text("开始！"),
                 color: Colors.blueAccent,
                 onPressed: () {
+                  // TODO DI?
+                  final CharacterFeeder feeder = new CharacterFeeder();
+                  _buckets = feeder.provideCharacters(3, 7, _vocabulary);
+                  print('2> ' + _buckets.toString());
                   _handleSelection(''); // reset
                   showModalBottomSheet(
                       context: context,
