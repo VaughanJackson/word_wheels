@@ -36,14 +36,8 @@ class _ExamplePageState extends State<ExamplePage> {
     });
   }
 
-  void _play(vocabulary) {
-    // TODO DI?
-    final CharacterFeeder feeder = new CharacterFeeder();
-    final List<String>  buckets = feeder.provideCharacters(3, 7, vocabulary);
-    print('2> ' + buckets.toString());
+  void _play() {
     _handleSelection(''); // reset
-
-
     showModalBottomSheet(
         context: context,
         builder: (BuildContext builder) {
@@ -59,22 +53,44 @@ class _ExamplePageState extends State<ExamplePage> {
                 ],
               ),
               body: Container(
-                  key: Key('wheels'),
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        Expanded(
-                          child: Wheels(
-                              buckets,
-                                  (selection) {
-                                print('_ExamplePageState selection = ' + selection);
-                                _handleSelection(selection);
+                key: Key('wheels'),
+                child: Center(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: FutureBuilder<String>(
+                          future: getVocabulary(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.done) {
+                              print('>>>' + snapshot.connectionState.toString());
+                              if (snapshot.hasData) {
+                                print('Got data!: ' + snapshot.data);
+                              } else if (snapshot.hasError) {
+                                print('Got error!:' + snapshot.error); // TODO display error to user
                               }
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
+
+                              final String vocabulary = snapshot.data;
+                              print('1> ' + vocabulary);
+                              // TODO DI?
+                              final CharacterFeeder feeder = new CharacterFeeder();
+                              final List<String>  buckets = feeder.provideCharacters(3, 7, snapshot.data);
+                              print('2> ' + buckets.toString());
+                              return Wheels(
+                                buckets,
+                                (selection) {
+                                  print('_ExamplePageState selection = ' + selection);
+                                  _handleSelection(selection);
+                                }
+                                );
+                            } else {
+                              return CircularProgressIndicator();
+                            }
+                          }
+                        )
+                      ),
+                    ],
+                  ),
+                )
               ));
         });
   }
@@ -82,44 +98,27 @@ class _ExamplePageState extends State<ExamplePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<String>(
-          future: getVocabulary(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              print('>>>' + snapshot.connectionState.toString());
-              if (snapshot.hasData) {
-                print('Got data!: ' + snapshot.data);
-              } else if (snapshot.hasError) {
-                print('Got error!:' + snapshot.error);
-              }
-              print('1> ' + snapshot.data);
-              return Container(
-                color: Colors.blueGrey,
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      AppBar(title: Text('句词：$_phrase', textAlign: TextAlign.start)),
-                      Spacer(),
-                      MaterialButton(
-                        key: Key("开始！"),
-                        child: Text("开始！"),
-                        color: Colors.blueAccent,
-                        onPressed: () {
-                          _play(snapshot.data);
-                        },
-                      ),
-                      Spacer()
-                    ],
-                  ),
-                ),
-              );
-            } else {
-              return CircularProgressIndicator();
-            }
-          }
-      ),
-
+      body: Container(
+        color: Colors.blueGrey,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              AppBar(title: Text('句词：$_phrase', textAlign: TextAlign.start)),
+              Spacer(),
+              MaterialButton(
+                key: Key("开始！"),
+                child: Text("开始！"),
+                color: Colors.blueAccent,
+                onPressed: () {
+                  _play();
+                },
+              ),
+              Spacer()
+            ],
+          ),
+        ),
+      )
     );
   }
 }
