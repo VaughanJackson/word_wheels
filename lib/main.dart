@@ -28,16 +28,55 @@ class ExamplePage extends StatefulWidget {
 class _ExamplePageState extends State<ExamplePage> {
 
   String _phrase = '';
-  // cached result from REST call
-  String _vocabulary;
-  // re-jigged from _vocabulary each time user starts new 'game'
-  List<String> _buckets;
 
   void _handleSelection(selection) {
     setState(() {
       _phrase = selection;
       print('_phrase = ' + _phrase);
     });
+  }
+
+  void _play(vocabulary) {
+    // TODO DI?
+    final CharacterFeeder feeder = new CharacterFeeder();
+    final List<String>  buckets = feeder.provideCharacters(3, 7, vocabulary);
+    print('2> ' + buckets.toString());
+    _handleSelection(''); // reset
+
+
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext builder) {
+          return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.amber,
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.replay),
+                    tooltip: "再玩一次！",
+                    onPressed: () {},
+                  )
+                ],
+              ),
+              body: Container(
+                  key: Key('wheels'),
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        Expanded(
+                          child: Wheels(
+                              buckets,
+                                  (selection) {
+                                print('_ExamplePageState selection = ' + selection);
+                                _handleSelection(selection);
+                              }
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+              ));
+        });
   }
 
   @override
@@ -53,7 +92,6 @@ class _ExamplePageState extends State<ExamplePage> {
               } else if (snapshot.hasError) {
                 print('Got error!:' + snapshot.error);
               }
-              _vocabulary = snapshot.data;
               print('1> ' + snapshot.data);
               return Container(
                 color: Colors.blueGrey,
@@ -68,44 +106,7 @@ class _ExamplePageState extends State<ExamplePage> {
                         child: Text("开始！"),
                         color: Colors.blueAccent,
                         onPressed: () {
-                          // TODO DI?
-                          final CharacterFeeder feeder = new CharacterFeeder();
-                          _buckets = feeder.provideCharacters(3, 7, _vocabulary);
-                          print('2> ' + _buckets.toString());
-                          _handleSelection(''); // reset
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (BuildContext builder) {
-                                return Scaffold(
-                                    appBar: AppBar(
-                                      backgroundColor: Colors.amber,
-                                      actions: <Widget>[
-                                        IconButton(
-                                          icon: Icon(Icons.replay),
-                                          tooltip: "再玩一次！",
-                                          onPressed: () {},
-                                        )
-                                      ],
-                                    ),
-                                    body: Container(
-                                        key: Key('wheels'),
-                                        child: Center(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Expanded(
-                                                child: Wheels(
-                                                    _buckets,
-                                                        (selection) {
-                                                      print('_ExamplePageState selection = ' + selection);
-                                                      _handleSelection(selection);
-                                                    }
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                    ));
-                              });
+                          _play(snapshot.data);
                         },
                       ),
                       Spacer()
