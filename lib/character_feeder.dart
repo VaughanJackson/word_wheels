@@ -12,6 +12,8 @@ class CharacterFeeder {
                                  final int listLength,
                                  final String vocabulary) {
 
+    print('provideCharacters(' + numberOfLists.toString() + ','
+        + listLength.toString() + ',' + vocabulary + ')');
     _validateArguments(numberOfLists, listLength, vocabulary);
 
     final List<String> characters = List<String>();

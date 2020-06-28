@@ -29,6 +29,16 @@ class _ExamplePageState extends State<ExamplePage> {
 
   String _phrase = '';
 
+  Future<String> _vocabulary;
+
+  @override
+  void initState() {
+    print("_ExamplePageState.initState()");
+    super.initState();
+
+    _vocabulary = getVocabulary();
+  }
+
   void _handleSelection(selection) {
     setState(() {
       _phrase = selection;
@@ -59,7 +69,7 @@ class _ExamplePageState extends State<ExamplePage> {
                     children: <Widget>[
                       Expanded(
                         child: FutureBuilder<String>(
-                          future: getVocabulary(),
+                          future: _vocabulary,
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.done) {
                               print('>>>' + snapshot.connectionState.toString());
